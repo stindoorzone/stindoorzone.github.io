@@ -90,13 +90,29 @@
     font-weight: 900;
     margin-bottom: 1rem;
     line-height: 1.2;
-  }
   .detail-price {
     font-family: 'Orbitron', monospace;
     font-size: 1.8rem;
     font-weight: 900;
     color: var(--gold);
     margin-bottom: 1.5rem;
+  }
+  .detail-price .old-price {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--muted);
+    text-decoration: line-through;
+    margin-right: 0.8rem;
+  }
+  .detail-price .discount-badge {
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--teal);
+    color: var(--dark);
+    padding: 0.25rem 0.7rem;
+    border-radius: 4px;
+    margin-left: 0.8rem;
+    vertical-align: middle;
   }
   .detail-info p.desc {
     color: var(--muted);
@@ -178,7 +194,11 @@
     <div class="detail-info">
       <div class="detail-label">Board Games</div>
       <h1>Board Game Collection</h1>
-      <div class="detail-price">৳750 BDT</div>
+     <div class="detail-price">
+  <span class="old-price">৳1000</span>
+  ৳800 BDT
+  <span class="discount-badge">20% OFF</span>
+</div>
       <p class="desc">Fun and engaging board games for game nights with friends and family. Great for get-togethers, family time, or a break from screens — easy to learn, fun for all ages.</p>
       <ul class="detail-features">
         <li>Great for 2+ players</li>
