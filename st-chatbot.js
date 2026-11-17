@@ -6,13 +6,13 @@
   "use strict";
 
   var CONFIG = {
-    webhookUrl: "webhookUrl: "https://stindoorzone.app.n8n.cloud/webhook/st-chat",
-
+    webhookUrl: "https://stindoorzone.app.n8n.cloud/webhook/st-chat",
     whatsappNumber: "8801635990895", // country code + number, no + or spaces
     shopName: "ST Indoor Zone",
     tagline: "Play \u2022 Wear \u2022 Enjoy",
-    greeting: "Hi! Welcome to ST Indoor Zone. Ask me about products details, payment, or delivery.",
+    greeting: "Hi! Welcome to ST Indoor Zone. Ask me about products, payment, or delivery.",
     quickReplies: ["Watch price", "Payment options", "Delivery", "I want to order"],
+    topOffset: 80, // px from the top of the screen; set 16 if nothing is in the corner
     minGapMs: 1500,
     maxLen: 500,
     timeoutMs: 25000
@@ -32,9 +32,9 @@
   })();
 
   var css = [
-    "#stc-btn{position:fixed;right:16px;bottom:16px;width:56px;height:56px;border-radius:50%;border:none;background:#d4af37;color:#0d2427;cursor:pointer;z-index:99999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}",
+    "#stc-btn{position:fixed;right:16px;top:var(--stc-top,80px);width:56px;height:56px;border-radius:50%;border:none;background:#d4af37;color:#0d2427;cursor:pointer;z-index:99999;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 14px rgba(0,0,0,.35)}",
     "#stc-btn:focus-visible,#stc-send:focus-visible,#stc-x:focus-visible{outline:2px solid #f1e6c0;outline-offset:2px}",
-    "#stc-panel{position:fixed;right:16px;bottom:84px;width:min(360px,calc(100vw - 32px));height:min(520px,calc(100vh - 110px));background:#0d2427;border:1px solid #1f4a4f;border-radius:14px;overflow:hidden;z-index:99999;display:none;flex-direction:column;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.45)}",
+    "#stc-panel{position:fixed;right:16px;top:calc(var(--stc-top,80px) + 68px);width:min(360px,calc(100vw - 32px));height:min(520px,calc(100vh - var(--stc-top,80px) - 90px));background:#0d2427;border:1px solid #1f4a4f;border-radius:14px;overflow:hidden;z-index:99999;display:none;flex-direction:column;font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.45)}",
     "#stc-panel.open{display:flex}",
     "#stc-head{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#123136;border-bottom:1px solid #1f4a4f}",
     "#stc-logo{width:34px;height:34px;border-radius:50%;background:#d4af37;color:#0d2427;display:flex;align-items:center;justify-content:center;font-weight:600;font-size:13px}",
@@ -59,6 +59,7 @@
   var style = document.createElement("style");
   style.textContent = css;
   document.head.appendChild(style);
+  document.documentElement.style.setProperty("--stc-top", CONFIG.topOffset + "px");
 
   var root = document.createElement("div");
   root.innerHTML =
