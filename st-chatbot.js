@@ -8,6 +8,7 @@
   var CONFIG = {
     webhookUrl: "https://stindoorzone.app.n8n.cloud/webhook/st-chat",
     whatsappNumber: "8801635990895", // country code + number, no + or spaces
+    messengerUrl: "https://m.me/Stindoorzone",
     shopName: "ST Indoor Zone",
     tagline: "Play \u2022 Wear \u2022 Enjoy",
     greeting: "Hi! Welcome to ST Indoor Zone. Ask me about products, payment, or delivery.",
@@ -53,6 +54,9 @@
     "#stc-in{flex:1;min-width:0;background:#0d2427;border:1px solid #1f4a4f;color:#e8f1f0;border-radius:18px;padding:8px 14px;font-size:14px}",
     "#stc-in:focus{outline:none;border-color:#d4af37}",
     "#stc-send{width:38px;height:38px;border-radius:50%;border:none;background:#d4af37;color:#0d2427;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}",
+    ".stc-ms{background:#0084ff}",
+    ".stc-img{align-self:flex-start;max-width:70%;border-radius:12px;border:1px solid #1f4a4f}",
+    ".stc-btns{align-self:flex-start;display:flex;flex-wrap:wrap;gap:6px}",
     "@media (prefers-reduced-motion:no-preference){#stc-panel.open{animation:stcUp .18s ease-out}@keyframes stcUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}}"
   ].join("");
 
@@ -96,7 +100,49 @@
     a.rel = "noopener";
     a.href = "https://wa.me/" + CONFIG.whatsappNumber + "?text=" + encodeURIComponent(prefill || "Hi, I want to order from " + CONFIG.shopName);
     a.textContent = "Chat on WhatsApp";
+    a.addEventListener("click", function () { if (window.fbq) fbq("track", "Lead"); });
     msgs.appendChild(a);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function addMessenger() {
+    var a = document.createElement("a");
+    a.className = "stc-wa stc-ms";
+    a.target = "_blank";
+    a.rel = "noopener";
+    a.href = CONFIG.messengerUrl;
+    a.textContent = "Chat on Messenger";
+    a.addEventListener("click", function () { if (window.fbq) fbq("track", "Lead"); });
+    msgs.appendChild(a);
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+
+  function addImage(url) {
+    var img = document.createElement("img");
+    img.className = "stc-img";
+    img.alt = "Product photo";
+    img.addEventListener("load", function () { msgs.scrollTop = msgs.scrollHeight; });
+    img.src = url;
+    msgs.appendChild(img);
+  }
+
+  function clearButtons() {
+    var old = msgs.querySelectorAll(".stc-btns");
+    for (var i = 0; i < old.length; i++) old[i].remove();
+  }
+
+  function addButtons(list) {
+    var wrap = document.createElement("div");
+    wrap.className = "stc-btns";
+    list.slice(0, 6).forEach(function (label) {
+      var b = document.createElement("button");
+      b.type = "button";
+      b.className = "stc-chip";
+      b.textContent = String(label);
+      b.addEventListener("click", function () { send(String(label)); });
+      wrap.appendChild(b);
+    });
+    msgs.appendChild(wrap);
     msgs.scrollTop = msgs.scrollHeight;
   }
 
@@ -127,6 +173,7 @@
     addMsg(text.slice(0, CONFIG.maxLen), "user");
     input.value = "";
     $("stc-chips").style.display = "none";
+    clearButtons();
     var typing = addMsg("...", "bot");
 
     var ctrl = new AbortController();
@@ -147,11 +194,14 @@
         var handoff = reply.indexOf("[[WHATSAPP]]") !== -1;
         reply = reply.replace("[[WHATSAPP]]", "").trim();
         typing.textContent = reply || "Sorry, I couldn\u2019t get that. Try again or message us on WhatsApp.";
-        if (handoff) addWhatsApp();
+        if (data.image) addImage(String(data.image));
+        if (handoff || data.whatsapp) { addWhatsApp(data.whatsappText); addMessenger(); }
+        if (Array.isArray(data.buttons) && data.buttons.length) addButtons(data.buttons);
       })
       .catch(function () {
-        typing.textContent = "Couldn\u2019t reach the assistant right now. Message us on WhatsApp instead.";
+        typing.textContent = "Couldn\u2019t reach the assistant right now. Message us on WhatsApp or Messenger instead.";
         addWhatsApp();
+        addMessenger();
       })
       .finally(function () {
         clearTimeout(timer);
