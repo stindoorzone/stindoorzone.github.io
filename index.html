@@ -25,7 +25,8 @@
   <meta name="twitter:image" content="https://stindoorzone.github.io/og-image.jpg">
 
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600&display=swap" rel="stylesheet"/>
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+   <style>
    :root {
       --teal: #00C9A7;
       --gold: #C9A84C;
@@ -45,8 +46,7 @@
       color: var(--text);
       font-family: 'Rajdhani', sans-serif;
       font-size: 18px;
-      line-height: 1.7;
-      overflow-x: hidden;
+f      overflow-x: hidden;
     }
 
     /* NOISE OVERLAY */
@@ -449,7 +449,26 @@
 
     .footer-logo span { color: var(--gold); }
     footer p { color: var(--muted); font-size: 0.9rem; }
-
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  margin: 16px 0;
+}
+.social-icons a {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+.social-icons a:hover { background: var(--gold); color: var(--dark); }
     /* ANIMATIONS */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(30px); }
@@ -595,7 +614,6 @@ src="https://www.facebook.com/tr?id=2383589625713476&ev=PageView&noscript=1"
               Chittagong, Bangladesh
             </div>
           </div>
-          </div>
           <div class="contact-item">
             <span class="contact-item-icon">📧</span>
             <div class="contact-item-text">
@@ -610,7 +628,7 @@ src="https://www.facebook.com/tr?id=2383589625713476&ev=PageView&noscript=1"
     <a href="https://www.facebook.com/share/1HRB2HBvdS/?mibextid=wwXIfr" target="_blank" rel="noopener" style="color: var(--muted); text-decoration: none;">Follow our page</a>
   </div>
 </div>
-          <a href="https://m.me/Stindoorzone" target="_blank" rel="noopener" style="text-decoration:none; color:inherit;">
+          <a href="https://m.me/Stindoorzone" target="_blank" rel="noopener" onclick="if(window.fbq)fbq('track','Lead');" style="text-decoration:none; color:inherit;">
           <div class="contact-item">
             <span class="contact-item-icon">💬</span>
             <div class="contact-item-text">
@@ -709,10 +727,16 @@ src="https://www.facebook.com/tr?id=2383589625713476&ev=PageView&noscript=1"
 
   <!-- FOOTER -->
   <footer>
-    <div class="footer-logo">ST <span>Indoor Zone</span></div>
-    <p>Bangladesh &nbsp;|&nbsp; 📘ST Indoor Zone &nbsp;|&nbsp; stindoorzone@gmail.com</p>
-    <p style="margin-top:0.5rem;">© 2026 ST Indoor Zone. All rights reserved.</p>
-  </footer>
+  <div class="footer-logo">ST <span>Indoor Zone</span></div>
+  <div class="social-icons">
+    <a href="https://www.facebook.com/share/1HRB2HBvdS/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/_st_indoor_zone" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://m.me/Stindoorzone" target="_blank" rel="noopener" aria-label="Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+    <a href="https://wa.me/8801635990895" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
+  <p>Bangladesh &nbsp;|&nbsp; stindoorzone@gmail.com</p>
+  <p style="margin-top:0.5rem;">© 2026 ST Indoor Zone. All rights reserved.</p>
+</footer>
 <script>
   const menuToggle = document.getElementById('menuToggle');
   const navMenu = document.getElementById('navMenu');
