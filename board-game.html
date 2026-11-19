@@ -4,10 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Board Games | ST Indoor Zone</title>
-  <link rel="icon" type="image/png" href="/favicon.png">
+<meta name="description" content="Fun and engaging board games from ST Indoor Zone, Chittagong. Order easily on WhatsApp. Delivery all over Bangladesh.">
+<link rel="canonical" href="https://stindoorzone.github.io/board-game.html">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ST Indoor Zone">
+<meta property="og:title" content="Board Games | ST Indoor Zone">
+<meta property="og:description" content="Fun and engaging board games for game nights with friends and family. Order easily on WhatsApp.">
+<meta property="og:url" content="https://stindoorzone.github.io/board-game.html">
+<meta property="og:image" content="https://stindoorzone.github.io/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" type="image/png" href="/favicon.png">
 <link rel="apple-touch-icon" href="/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
   :root{
     --dark:#05090c;
@@ -177,6 +191,27 @@
   .footer-logo span { color: var(--gold); }
   footer p { color: var(--muted); font-size: 0.9rem; }
 
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 16px 0;
+  }
+  .social-icons a {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    color: var(--gold);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .social-icons a:hover { background: var(--gold); color: var(--dark); }
+
   @media (max-width: 768px) {
     nav { padding: 1rem 1.5rem; }
     .detail-container { grid-template-columns: 1fr; gap: 2rem; }
@@ -214,16 +249,16 @@ src="https://www.facebook.com/tr?id=2383589625713476&ev=PageView&noscript=1"
     <div class="detail-info">
       <div class="detail-label">Board Games</div>
       <h1>First Sling Pucks</h1>
-     <div class="detail-price">
-  <span class="old-price">৳1000</span>
-  ৳800 BDT
-  <span class="discount-badge">20% OFF</span>
-</div>
+      <div class="detail-price">
+        <span class="old-price">৳1000</span>
+        ৳800 BDT
+        <span class="discount-badge">20% OFF</span>
+      </div>
       <p class="desc">First Sling Puck | Fun and engaging board games for game nights with friends and family. Great for get-togethers, family time, or a break from screens — easy to learn, fun for all ages.</p>
       <ul class="detail-features">
         <li>Great for 2+ players</li>
         <li>Compact box, easy to store</li>
-        <li>Perfect for family & friend game nights</li>
+        <li>Perfect for family &amp; friend game nights</li>
         <li>Available delivery in your area</li>
       </ul>
       <a class="order-btn" id="orderBtn" href="#" target="_blank" rel="noopener">Order via WhatsApp</a>
@@ -233,14 +268,23 @@ src="https://www.facebook.com/tr?id=2383589625713476&ev=PageView&noscript=1"
 
 <footer>
   <div class="footer-logo">ST INDOOR <span>ZONE</span></div>
+  <div class="social-icons">
+    <a href="https://www.facebook.com/share/1HRB2HBvdS/?mibextid=wwXIfr" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+    <a href="https://www.instagram.com/_st_indoor_zone" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+    <a href="https://m.me/Stindoorzone" target="_blank" rel="noopener" aria-label="Messenger"><i class="fa-brands fa-facebook-messenger"></i></a>
+    <a href="https://wa.me/8801635990895" target="_blank" rel="noopener" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+  </div>
   <p>Chittagong, Bangladesh | stindoorzone@gmail.com</p>
 </footer>
 
 <script>
   const phone = "8801635990895";
   const message = "Hi! I'd like to order the Board Game (৳800 BDT) from ST Indoor Zone.";
-  document.getElementById('orderBtn').href =
-    "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+  const btn = document.getElementById('orderBtn');
+  btn.href = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+  btn.addEventListener('click', function () {
+    if (window.fbq) fbq('track', 'Lead');
+  });
 </script>
 <script src="st-chatbot.js" defer></script>
 </body>
